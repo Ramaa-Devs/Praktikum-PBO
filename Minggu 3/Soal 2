@@ -1,0 +1,38 @@
+import random
+
+class Father:
+    def __init__(self, tipe_darah):
+        self.tipe_darah = tipe_darah
+    
+    def hasil(self):
+        print("Gol darah Bapak:", self.tipe_darah)
+
+class Mother:
+    def __init__(self, tipe_darah):
+        self.tipe_darah = tipe_darah
+    
+    def hasil(self):
+        print("Gol darah Ibu:", self.tipe_darah)
+
+class Child(Father, Mother):
+    def __init__(self, tipe_darah_ayah, tipe_darah_ibu):
+        Father.__init__(self, tipe_darah_ayah)
+        Mother.__init__(self, tipe_darah_ibu)
+        self.tipe_darah = random.choice([tipe_darah_ayah, tipe_darah_ibu])
+        #sudah otomatis 50:50
+    
+    def hasil(self):
+        print("Gol darah anak:", self.tipe_darah)
+
+bapak = Father("O")
+ibu = Mother("A")
+anak = Child(bapak.tipe_darah, ibu.tipe_darah)
+
+bapak.hasil()
+ibu.hasil()
+anak.hasil()
+
+#output
+#Gol darah Bapak: O
+#Gol darah Ibu: A
+#Gol darah anak: A
