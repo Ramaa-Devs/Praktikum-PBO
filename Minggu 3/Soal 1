@@ -1,0 +1,60 @@
+#diwan ramadhani dwi putra 123140116
+
+from math import log
+class kalkulator:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self):
+        return self.x + self.y
+
+    def __sub__(self):
+        return self.x - self.y
+
+    def __mul__(self):
+        return self.x * self.y
+
+    def __truediv__(self):
+        return self.x / self.y
+
+    def __pow__(self):
+        return self.x ** self.y
+    
+    def __log__(self):
+        return log(self.y, self.x)
+
+pilihan = input("1.tambah\n2.kurang\n3.kali\n4.bagi\n5.pangkat\n6.logaritma\nPilih operasi:")
+if pilihan == "1":
+    x = int(input("Masukkan angka pertama: "))
+    y = int(input("Masukkan angka kedua: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya {x} + {y}: {angka.__add__()}")
+elif pilihan == "2":
+    x = int(input("Masukkan angka pertama: "))
+    y = int(input("Masukkan angka kedua: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya {x} - {y}: {angka.__sub__()}")
+elif pilihan == "3":
+    x = int(input("Masukkan angka pertama: "))
+    y = int(input("Masukkan angka kedua: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya {x} * {y}: {angka.__mul__()}")
+elif pilihan == "4":
+    x = int(input("Masukkan angka pertama: "))
+    y = int(input("Masukkan angka kedua: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya {x} / {y}: {angka.__truediv__()}")
+elif pilihan == "5":
+    x = int(input("Masukkan angka pertama: "))
+    y = int(input("Masukkan angka kedua: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya {x} ^ {y}: {angka.__pow__()}")
+elif pilihan == "6":
+    print("rumusnya logb a")
+    x = int(input("Masukkan angka b: "))
+    y = int(input("Masukkan angka a: "))
+    angka = kalkulator(x, y)
+    print(f"hasilnya log{x} {y}: {angka.__log__()}")
+else:
+    print("milih yg bener kocak")
