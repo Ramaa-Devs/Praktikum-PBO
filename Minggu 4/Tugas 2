@@ -1,0 +1,67 @@
+#diwan ramadhani dwi putra
+#123140116
+# Definisi kelas ToDoList
+class ToDoList:
+    def __init__(self):
+        self.tugas = []  #inisialisasi list daftar tugas kosong
+
+    def tambah_tugas(self, tugas_baru):
+        if not tugas_baru.strip():  #Cek kalo tugas kosong
+            raise ValueError("Tugas tidak boleh kosong.")  #Raise error kalau kosong
+        self.tugas.append(tugas_baru)  #Tambahkan tugas ke daftar
+        print("Tugas berhasil ditambahkan!")
+
+#menghapus spasi diawal dan diakhir
+#" belajar " -> "belajar"
+#" " -> ""
+#inputan nomor 3, list cuma ada 1
+    def hapus_tugas(self, nomor):
+        try:
+            index = int(nomor) - 1  #ganti inputan nomor ke indeks (dimulai dari 0)
+            if index < 0 or index >= len(self.tugas):  # ek apakah indeks valid
+                raise IndexError  #Raise error kalau indeks di luar daftar
+            tugas_dihapus = self.tugas.pop(index)  #Hapus tugas dari daftar
+            print(f"Tugas '{tugas_dihapus}' berhasil dihapus!")
+        except ValueError:
+            print("Input tidak valid. Masukkan nomor tugas yang benar.")  # Jika input bukan angka
+        except IndexError:
+            print(f"Error: Tugas dengan nomor {nomor} tidak ditemukan.")  # Jika nomor tidak ada
+
+    def tampilkan_tugas(self):
+        if not self.tugas:  #cek jika daftar tugas kosong
+            print("Daftar tugas kosong.")
+        else:
+            print("Daftar Tugas:")  #nampilin daftar tugas
+            for tugas in (self.tugas):
+                print(f"- {tugas}")
+
+    def jalankan(self):
+        while True:
+            print("\nPilih aksi:")  # Menu pilihan
+            print("1. Tambah tugas")
+            print("2. Hapus tugas")
+            print("3. Tampilkan daftar tugas")
+            print("4. Keluar")
+
+            pilihan = input("Masukkan pilihan (1/2/3/4): ")  # Input pilihan
+
+            if pilihan == "1":
+                tugas = input("Masukkan tugas yang ingin ditambahkan: ")  # Input tugas
+                try:
+                    self.tambah_tugas(tugas)  # Tambah tugas (bisa raise error)
+                except ValueError as e:
+                    print(f"Error: {e}")  # Tampilkan pesan error
+            elif pilihan == "2":
+                nomor = input("Masukkan nomor tugas yang ingin dihapus: ")  # Input nomor
+                self.hapus_tugas(nomor)  # Coba hapus tugas
+            elif pilihan == "3":
+                self.tampilkan_tugas()  # Tampilkan semua tugas
+            elif pilihan == "4":
+                print("Keluar dari program.")  # Keluar dari program
+                break
+            else:
+                print("Pilihan tidak valid. Coba lagi.")  # Jika input bukan 1-4
+
+#objek class sama jalnin programnya
+app = ToDoList()
+app.jalankan()
