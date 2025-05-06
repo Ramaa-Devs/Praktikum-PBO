@@ -1,0 +1,83 @@
+import customtkinter as ctk
+from tkinter import messagebox
+import os
+
+# Konfigurasi tampilan
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
+
+# File untuk menyimpan data pengguna
+USER_DATA_FILE = "users.txt"
+
+def load_users():
+    users = {}
+    if os.path.exists(USER_DATA_FILE):
+        with open(USER_DATA_FILE, "r") as file:
+            for line in file:
+                username, password = line.strip().split(",")
+                users[username] = password
+    return users
+
+def save_user(username, password):
+    with open(USER_DATA_FILE, "a") as file:
+        file.write(f"{username},{password}\n")
+
+def register():
+    def submit():
+        username = entry_username.get()
+        password = entry_password.get()
+        confirm = entry_confirm.get()
+        users = load_users()
+
+        if not username or not password or not confirm:
+            messagebox.showerror("Error", "Semua kolom harus diisi.")
+        elif username in users:
+            messagebox.showerror("Error", "Username sudah terdaftar.")
+        elif password != confirm:
+            messagebox.showerror("Error", "Konfirmasi kata sandi tidak cocok.")
+        else:
+            save_user(username, password)
+            messagebox.showinfo("Sukses", "Registrasi berhasil.")
+            window_register.destroy()
+
+    window_register = ctk.CTkToplevel(app)
+    window_register.title("Registrasi")
+    window_register.geometry("300x250")
+
+    entry_username = ctk.CTkEntry(window_register, placeholder_text="Username")
+    entry_username.pack(pady=10)
+    entry_password = ctk.CTkEntry(window_register, placeholder_text="Password", show="*")
+    entry_password.pack(pady=10)
+    entry_confirm = ctk.CTkEntry(window_register, placeholder_text="Konfirmasi Password", show="*")
+    entry_confirm.pack(pady=10)
+    btn_submit = ctk.CTkButton(window_register, text="Daftar", command=submit)
+    btn_submit.pack(pady=10)
+
+def login():
+    username = entry_login_username.get()
+    password = entry_login_password.get()
+    users = load_users()
+
+    if username in users and users[username] == password:
+        messagebox.showinfo("Sukses", f"Selamat datang, {username}!")
+    else:
+        messagebox.showerror("Gagal", "Username atau password salah.")
+
+# Antarmuka utama
+app = ctk.CTk()
+app.title("Sistem Login")
+app.geometry("400x300")
+
+frame = ctk.CTkFrame(app)
+frame.pack(pady=20, padx=20, fill="both", expand=True)
+
+entry_login_username = ctk.CTkEntry(frame, placeholder_text="Username")
+entry_login_username.pack(pady=10)
+entry_login_password = ctk.CTkEntry(frame, placeholder_text="Password", show="*")
+entry_login_password.pack(pady=10)
+btn_login = ctk.CTkButton(frame, text="Login", command=login)
+btn_login.pack(pady=10)
+btn_register = ctk.CTkButton(frame, text="Daftar", command=register)
+btn_register.pack(pady=10)
+
+app.mainloop()
